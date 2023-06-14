@@ -20,6 +20,7 @@
  		vimAlias = true;
 
 		extraConfig = ''
+			set mouse=
       set number relativenumber
       set tabstop=2
       set shiftwidth=2
@@ -110,6 +111,10 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+
+	# see https://github.com/nix-community/home-manager/issues/432
+	programs.man.enable = false;
+	home.extraOutputsToInstall = [ "man" ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
