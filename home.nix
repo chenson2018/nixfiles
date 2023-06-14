@@ -43,7 +43,7 @@
 #		'';
 #		shellAliases = {
 #			sw = "home-manager switch";
-#			eh = "vim /home/chenson/git/nixfiles/home.nix"
+#			eh = "vim /home/chenson/git/nixfiles/home.nix";
 #		};
 #	};
 
