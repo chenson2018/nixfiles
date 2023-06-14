@@ -26,11 +26,31 @@
       set tabstop=2
 			set shiftwidth=2
     '';
+
+		# TODO fix issues with telescope
+
+		plugins = with pkgs.vimPlugins; [ 
+			telescope-nvim 
+		];
   };
+
+# TODO Want to have .bashrc here, will revist later...
+#
+#	programs.bash = {
+#		enable = true;
+#		bashrcExtra = ''
+#			/home/chenson/git/nixfiles/.bashrc
+#		'';
+#		shellAliases = {
+#			sw = "home-manager switch";
+#			eh = "vim /home/chenson/git/nixfiles/home.nix"
+#		};
+#	};
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+		pkgs.ripgrep
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
