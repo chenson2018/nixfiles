@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "chenson";
   home.homeDirectory = "/home/chenson";
 
@@ -24,8 +22,9 @@
 		extraConfig = ''
       set number relativenumber
       set tabstop=2
-			set shiftwidth=2
-    '';
+      set shiftwidth=2
+      au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+		'';
 
 		# TODO fix issues with telescope
 
@@ -34,27 +33,70 @@
 		];
   };
 
-# TODO Want to have .bashrc here, will revist later...
-#
-#	programs.bash = {
-#		enable = true;
-#		bashrcExtra = ''
-#			/home/chenson/git/nixfiles/.bashrc
-#		'';
-#		shellAliases = {
-#			sw = "home-manager switch";
-#			eh = "vim /home/chenson/git/nixfiles/home.nix";
-#		};
-#	};
+	programs.git = {
+		enable = true;
+    aliases = {
+      st = "status";
+    };
+    extraConfig = {
+      pull.ff = "only";
+    };
+	};
+
+	programs.bash = {
+		enable = true;
+		historyControl = [ 
+			"ignoredups" 
+			"ignorespace" 
+		];
+		historySize = 1000;
+		historyFileSize = 2000;
+		shellOptions = [ 
+			"histappend" 
+			"globstar" 
+			"checkwinsize"
+		];
+		shellAliases = {
+			sw = "home-manager switch";
+			eh = "vim /home/chenson/git/nixfiles/home.nix";
+			ls = "ls --color=auto";
+			ll = "ls -alF";
+			la = "la -A";
+			l  = "ls -CF";
+		};
+		#bashrcExtra = builtins.readFile /home/chenson/git/nixfiles/.bashrc;
+		bashrcExtra = ''
+      # make less more friendly for non-text input files, see lesspipe(1)
+      [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+      
+      # set variable identifying the chroot you work in (used in the prompt below)
+      if [ -z "''${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+          debian_chroot=$(cat /etc/debian_chroot)
+      fi
+      
+      # If this is an xterm set the title to user@host:dir
+      case "$TERM" in
+      xterm*|rxvt*)
+					PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+          PS1="\[\e]0;''${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+          ;;
+      *)
+          ;;
+      esac      
+		'';
+	};
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-		pkgs.ripgrep
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+	  pkgs.rustc
+    pkgs.cargo
+    pkgs.rustfmt
+    pkgs.rust-analyzer
+    pkgs.clippy
 
+		pkgs.ripgrep
+ 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
