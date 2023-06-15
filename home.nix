@@ -15,108 +15,102 @@
 
   programs.neovim = {
     enable = true;
-		defaultEditor = true;
-	  viAlias = true;
- 		vimAlias = true;
-		extraConfig = ''
-			set so=999
-			set mouse=
-      set number relativenumber
-      set tabstop=2
-      set shiftwidth=2
-      au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-		'';
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    extraConfig = ''
+      			set so=999
+      			set mouse=
+            set number relativenumber
+            set tabstop=2
+            set shiftwidth=2
+            au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+      		'';
 
-		plugins = with pkgs.vimPlugins; [ 
-			{
-				plugin = telescope-nvim;
-				type = "lua";
-				config = ''
-          local builtin = require('telescope.builtin')
-          vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-          vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-          vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-          vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-				'';
-			}
-			{ 
-				plugin = undotree;
-				config = ''
-					nnoremap <F5> :UndotreeToggle<CR>
-				'';
-			}
-		];
+    plugins = with pkgs.vimPlugins; [
+      {
+        plugin = telescope-nvim;
+        type = "lua";
+        config = ''
+                    local builtin = require('telescope.builtin')
+                    vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+                    vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+                    vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+                    vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+          				'';
+      }
+      {
+        plugin = undotree;
+        config = ''
+          nnoremap <F5> :UndotreeToggle<CR>
+        '';
+      }
+    ];
   };
 
-	programs.git = {
-		enable = true;
-    aliases = {
-      st = "status";
-    };
-    extraConfig = {
-      pull.ff = "only";
-    };
-	};
+  programs.git = {
+    enable = true;
+    aliases = { st = "status"; };
+    extraConfig = { pull.ff = "only"; };
+  };
 
-	programs.bash = {
-		enable = true;
-		historyControl = [ 
-			"ignoredups" 
-			"ignorespace" 
-		];
-		# This does work to set variables, but because of __HM_SESS_VARS_SOURCED in 
-		# ~/.nix-profile/etc/profile.d/hm-session-vars.sh will require a reboot
-		# TODO find a better way!
-		#
-		# sessionVariables = {
-		# 	HELLO = "world";
-		# };
-		historySize = 1000;
-		historyFileSize = 2000;
-		shellOptions = [ 
-			"histappend" 
-			"globstar" 
-			"checkwinsize"
-		];
-		shellAliases = {
-			sw = "home-manager switch";
-			ls = "ls --color=auto";
-			ll = "ls -alF";
-			la = "la -A";
-			l  = "ls -CF";
-		};
-		bashrcExtra = ''
-      # make less more friendly for non-text input files, see lesspipe(1)
-      [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-      
-      # set variable identifying the chroot you work in (used in the prompt below)
-      if [ -z "''${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-          debian_chroot=$(cat /etc/debian_chroot)
-      fi
-      
-      # If this is an xterm set the title to user@host:dir
-      case "$TERM" in
-      xterm*|rxvt*)
-					PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-          PS1="\[\e]0;''${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-          ;;
-      *)
-          ;;
-      esac      
-		'';
-	};
+  programs.bash = {
+    enable = true;
+    historyControl = [ "ignoredups" "ignorespace" ];
+    # This does work to set variables, but because of __HM_SESS_VARS_SOURCED in 
+    # ~/.nix-profile/etc/profile.d/hm-session-vars.sh will require a reboot
+    # TODO find a better way!
+    #
+    # sessionVariables = {
+    # 	HELLO = "world";
+    # };
+    historySize = 1000;
+    historyFileSize = 2000;
+    shellOptions = [ "histappend" "globstar" "checkwinsize" ];
+    shellAliases = {
+      sw = "home-manager switch";
+      ls = "ls --color=auto";
+      ll = "ls -alF";
+      la = "la -A";
+      l = "ls -CF";
+    };
+    bashrcExtra = ''
+            # make less more friendly for non-text input files, see lesspipe(1)
+            [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+            
+            # set variable identifying the chroot you work in (used in the prompt below)
+            if [ -z "''${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+                debian_chroot=$(cat /etc/debian_chroot)
+            fi
+            
+            # If this is an xterm set the title to user@host:dir
+            case "$TERM" in
+            xterm*|rxvt*)
+      					PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+                PS1="\[\e]0;''${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+                ;;
+            *)
+                ;;
+            esac      
+      		'';
+  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-	  pkgs.rustc
+    # Nix tools
+    pkgs.nixfmt
+
+    # Rust tools
+    pkgs.rustc
     pkgs.cargo
     pkgs.rustfmt
     pkgs.rust-analyzer
     pkgs.clippy
 
-		pkgs.ripgrep
- 
+    # General command line tools
+    pkgs.ripgrep
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -131,9 +125,9 @@
     # '')
   ];
 
-	# see https://github.com/nix-community/home-manager/issues/432
-	programs.man.enable = false;
-	home.extraOutputsToInstall = [ "man" ];
+  # see https://github.com/nix-community/home-manager/issues/432
+  programs.man.enable = false;
+  home.extraOutputsToInstall = [ "man" ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
