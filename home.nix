@@ -27,10 +27,24 @@
       au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 		'';
 
-		# TODO fix issues with telescope
-
 		plugins = with pkgs.vimPlugins; [ 
-			telescope-nvim 
+			{
+				plugin = telescope-nvim;
+				type = "lua";
+				config = ''
+          local builtin = require('telescope.builtin')
+          vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+          vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+          vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+          vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+				'';
+			}
+			{ 
+				plugin = undotree;
+				config = ''
+					nnoremap <F5> :UndotreeToggle<CR>
+				'';
+			}
 		];
   };
 
