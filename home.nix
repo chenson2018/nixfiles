@@ -15,11 +15,11 @@
 
   programs.neovim = {
     enable = true;
-
+		defaultEditor = true;
 	  viAlias = true;
  		vimAlias = true;
-
 		extraConfig = ''
+			set so=999
 			set mouse=
       set number relativenumber
       set tabstop=2
@@ -50,6 +50,13 @@
 			"ignoredups" 
 			"ignorespace" 
 		];
+		# This does work to set variables, but because of __HM_SESS_VARS_SOURCED in 
+		# ~/.nix-profile/etc/profile.d/hm-session-vars.sh will require a reboot
+		# TODO find a better way!
+		#
+		# sessionVariables = {
+		# 	HELLO = "world";
+		# };
 		historySize = 1000;
 		historyFileSize = 2000;
 		shellOptions = [ 
@@ -59,13 +66,11 @@
 		];
 		shellAliases = {
 			sw = "home-manager switch";
-			eh = "vim /home/chenson/git/nixfiles/home.nix";
 			ls = "ls --color=auto";
 			ll = "ls -alF";
 			la = "la -A";
 			l  = "ls -CF";
 		};
-		#bashrcExtra = builtins.readFile /home/chenson/git/nixfiles/.bashrc;
 		bashrcExtra = ''
       # make less more friendly for non-text input files, see lesspipe(1)
       [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -129,20 +134,6 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-  };
-
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/chenson/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    # EDITOR = "emacs";
   };
 
   # Let Home Manager install and manage itself.
