@@ -30,7 +30,12 @@
     plugins = with pkgs.vimPlugins; [
       {
         plugin = rose-pine;
-        config = "colorscheme rose-pine";
+				type = "lua";
+        config = ''
+					vim.cmd.colorscheme("rose-pine")
+					vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+					vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+				'';
       }
       nvim-lspconfig
       luasnip
