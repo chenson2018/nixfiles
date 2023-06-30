@@ -30,12 +30,9 @@
     plugins = with pkgs.vimPlugins; [
       {
         plugin = rose-pine;
-				type = "lua";
-        config = ''
-					vim.cmd.colorscheme("rose-pine")
-					vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-					vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-				'';
+        type = "lua";
+        config =
+          "	vim.cmd.colorscheme(\"rose-pine\")\n	vim.api.nvim_set_hl(0, \"Normal\", { bg = \"none\" })\n	vim.api.nvim_set_hl(0, \"NormalFloat\", { bg = \"none\" })\n";
       }
       nvim-lspconfig
       luasnip
@@ -146,8 +143,8 @@
     enable = true;
     aliases = { st = "status"; };
     extraConfig = { pull.ff = "only"; };
-		userName = "Chris Henson";
-		userEmail = "chrishenson.net@gmail.com";
+    userName = "Chris Henson";
+    userEmail = "chrishenson.net@gmail.com";
   };
 
   programs.bash = {
@@ -194,10 +191,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-		# Typst tools
-		pkgs.typst
-		pkgs.typst-fmt
-		# pkgs.typst-lsp
+    # Typst tools
+    pkgs.typst
+    pkgs.typst-fmt
+    # pkgs.typst-lsp
 
     # Nix tools
     pkgs.nixfmt
