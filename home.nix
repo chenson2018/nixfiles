@@ -192,6 +192,11 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+		# Typst tools
+		pkgs.typst
+		pkgs.typst-fmt
+		# pkgs.typst-lsp
+
     # Nix tools
     pkgs.nixfmt
 
