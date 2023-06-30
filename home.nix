@@ -146,6 +146,8 @@
     enable = true;
     aliases = { st = "status"; };
     extraConfig = { pull.ff = "only"; };
+		userName = "Chris Henson";
+		userEmail = "chrishenson.net@gmail.com";
   };
 
   programs.bash = {
