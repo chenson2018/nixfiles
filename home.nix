@@ -28,6 +28,8 @@
       		'';
 
     plugins = with pkgs.vimPlugins; [
+			vimtex
+			Coqtail
       {
         plugin = rose-pine;
         type = "lua";
@@ -196,6 +198,7 @@
       ll = "ls -alF";
       la = "la -A";
       l = "ls -CF";
+			oa = "eval $(opam env)";
     };
     bashrcExtra = ''
             # make less more friendly for non-text input files, see lesspipe(1)
@@ -221,6 +224,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+		# for Coq packages that don't work with Nix
+		pkgs.opam
+
     # Sage
     pkgs.sage
 
@@ -241,6 +247,9 @@
 
     # General command line tools
     pkgs.ripgrep
+
+		# LaTex
+		pkgs.texlive.combined.scheme-full
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
