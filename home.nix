@@ -25,6 +25,8 @@
             set number relativenumber
             set tabstop=2
             set shiftwidth=2
+            set expandtab
+            set listchars=tab:>-
             au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
       		'';
 
@@ -309,6 +311,7 @@
 
 		# Haskell
 		pkgs.haskellPackages.haskell-language-server
+		pkgs.haskellPackages.stack
 
     # Rust tools
     pkgs.rustc
