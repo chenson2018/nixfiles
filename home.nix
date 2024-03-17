@@ -299,7 +299,7 @@
 		pkgs.elan
 
     # Sage
-    pkgs.sage
+    # pkgs.sage
 
     # Typst tools
     pkgs.typst
