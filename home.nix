@@ -312,6 +312,7 @@
 		# Haskell
 		pkgs.haskellPackages.haskell-language-server
 		pkgs.haskellPackages.stack
+    pkgs.haskellPackages.cabal-install
 
     # Rust tools
     pkgs.rustc
