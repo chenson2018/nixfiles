@@ -267,6 +267,9 @@
       la = "la -A";
       l = "ls -CF";
 			oa = "eval $(opam env)";
+      llvm_vm_start = "vboxmanage startvm \"CompilerDesignClass\" --type headless";
+      llvm_vm_stop = "vboxmanage controlvm \"CompilerDesignClass\" poweroff --type headless";
+      llvm_vm_ssh = "ssh -p 2222 llvm@127.0.0.1";
     };
     bashrcExtra = ''
             # make less more friendly for non-text input files, see lesspipe(1)
@@ -313,6 +316,8 @@
 		pkgs.haskellPackages.haskell-language-server
 		pkgs.haskellPackages.stack
     pkgs.haskellPackages.cabal-install
+    pkgs.haskellPackages.ghc
+    pkgs.haskellPackages.ormolu
 
     # Rust tools
     pkgs.rustc
