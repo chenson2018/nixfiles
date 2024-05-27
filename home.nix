@@ -270,6 +270,8 @@
       llvm_vm_start = "vboxmanage startvm \"CompilerDesignClass\" --type headless";
       llvm_vm_stop = "vboxmanage controlvm \"CompilerDesignClass\" poweroff --type headless";
       llvm_vm_ssh = "ssh -p 2222 llvm@127.0.0.1";
+      hs = "source /home/chenson/.ghcup/env";
+      us = "rsync -r --delete /home/chenson/git/website-hakyll/_site/ chris@chrishenson.net:/var/www/chrishenson.net/_site/";
     };
     bashrcExtra = ''
             # make less more friendly for non-text input files, see lesspipe(1)
@@ -313,10 +315,10 @@
     pkgs.nixfmt
 
 		# Haskell
-		pkgs.haskellPackages.haskell-language-server
-		pkgs.haskellPackages.stack
-    pkgs.haskellPackages.cabal-install
-    pkgs.haskellPackages.ghc
+		# pkgs.haskellPackages.haskell-language-server
+		# pkgs.haskellPackages.stack
+    # pkgs.haskellPackages.cabal-install
+    # pkgs.haskellPackages.ghc
     pkgs.haskellPackages.ormolu
 
     # Rust tools
