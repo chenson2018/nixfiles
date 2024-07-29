@@ -297,11 +297,13 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+
 		# for Coq packages that don't work with Nix
 		pkgs.opam
 
 		# Lean
 		pkgs.elan
+    pkgs.cadical
 
     # Sage
     # pkgs.sage
@@ -333,6 +335,7 @@
 
 		# LaTex
 		pkgs.texlive.combined.scheme-full
+    pkgs.texlivePackages.tikz-cd
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
