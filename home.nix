@@ -31,6 +31,7 @@
       		'';
 
     plugins = with pkgs.vimPlugins; [
+      unicode-vim
 			vimtex
 			{
 				plugin = lean-nvim;
