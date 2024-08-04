@@ -28,6 +28,7 @@
             set expandtab
             set listchars=tab:>-
             au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+            au BufReadPost,BufNewFile *.md,*.txt,*.tex setlocal tw=80 spell
       		'';
 
     plugins = with pkgs.vimPlugins; [
