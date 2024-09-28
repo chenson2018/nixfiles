@@ -21,6 +21,7 @@
     extraConfig = ''
 						nnoremap <leader>hh :lua vim.diagnostic.open_float()<cr>
 						nnoremap <leader>tt :lua vim.lsp.buf.hover()<cr>
+            nnoremap <leader>\ :lua require'lean.abbreviations'.show_reverse_lookup()<cr>
       			set so=999
       			set mouse=
             set number relativenumber
