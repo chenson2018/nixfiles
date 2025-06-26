@@ -43,10 +43,12 @@
 					require('lean').setup{
   					lsp = { on_attach = on_attach },
   					mappings = true,
+            goal_markers = {
+              unsolved = " ",
+              accomplished = '🎉',
+            },
 					}
-
 					-- from https://github.com/Julian/lean.nvim/issues/43#issuecomment-1850633100
-
 					local group = vim.api.nvim_create_augroup('LeanAutoOpenClose', {})
 					
 					vim.api.nvim_create_autocmd('BufWinEnter', {
@@ -275,6 +277,7 @@
       llvm_vm_stop = "vboxmanage controlvm \"CompilerDesignClass\" poweroff --type headless";
       llvm_vm_ssh = "ssh -p 2222 llvm@127.0.0.1";
       hs = "source /home/chenson/.ghcup/env";
+      leanpath = "export PATH=\"/home/chenson/.elan/bin:$PATH\"";
       us = "rsync -r --delete /home/chenson/git/website-hakyll/_site/ chris@chrishenson.net:/var/www/chrishenson.net/_site/";
     };
     bashrcExtra = ''
@@ -307,7 +310,11 @@
 
 		# Lean
 		pkgs.elan
-    pkgs.cadical
+    # pkgs.cadical
+    pkgs.libllvm
+
+    # for lean.nvim unit testing
+    pkgs.just
 
     # Sage
     # pkgs.sage
@@ -327,6 +334,9 @@
     # pkgs.haskellPackages.ghc
     pkgs.haskellPackages.ormolu
 
+    # Terminal presentations
+    pkgs.presenterm
+
     # Rust tools
     pkgs.rustc
     pkgs.cargo
@@ -338,6 +348,7 @@
     pkgs.ripgrep
 
 		# LaTex
+    pkgs.ott
 		pkgs.texlive.combined.scheme-full
     pkgs.texlivePackages.tikz-cd
 
